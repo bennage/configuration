@@ -3,7 +3,7 @@
     using System;
     using System.Configuration;
     using Xunit;
-    using Configuration = Bennage.Configuration.Specs.Configuration;
+    using Configuration = BetterConfig.Configuration;
 
     public class When_loading_a_configuration
     {
@@ -34,10 +34,7 @@
 
             SetEnvVar(randomValue, EnvironmentVariableTarget.User);
 
-            var config = Configuration.For<IMyConfiguration>(c =>
-            {
-                c.SqlConnectionString = "foo";
-            });
+            var config = Configuration.For<IMyConfiguration>();
             Assert.Equal(randomValue, config.SqlConnectionString);
         }
 

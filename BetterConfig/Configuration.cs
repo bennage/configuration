@@ -1,15 +1,13 @@
-﻿namespace Bennage.Configuration.Specs
+﻿namespace BetterConfig
 {
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Dynamic;
-    using System.Linq;
     using ImpromptuInterface;
 
     public static class Configuration
     {
-
         public static IList<Func<string, string>> ValueStrategies = new List<Func<string, string>>()
         {
             key => Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.Process),
