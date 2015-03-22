@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration.Specs", "Configuration.Specs\Configuration.Specs.csproj", "{F848BCC4-3AC9-4464-A437-EA6F97554733}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Specs", "Specs\Specs.csproj", "{F848BCC4-3AC9-4464-A437-EA6F97554733}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterConfig", "BetterConfig\BetterConfig.csproj", "{05292E07-67C2-4F28-892F-329D65058C96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F848BCC4-3AC9-4464-A437-EA6F97554733}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F848BCC4-3AC9-4464-A437-EA6F97554733}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F848BCC4-3AC9-4464-A437-EA6F97554733}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05292E07-67C2-4F28-892F-329D65058C96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05292E07-67C2-4F28-892F-329D65058C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05292E07-67C2-4F28-892F-329D65058C96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05292E07-67C2-4F28-892F-329D65058C96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
