@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>Configuration</h1>
+    <dl>
+        @foreach (var property in @Model.GetType().GetProperties())
+        {
+            <dt>@property.Name</dt>
+            <dd>@property.GetValue(@Model)</dd>
+        }
+    </dl>
+</body>
+</html>
