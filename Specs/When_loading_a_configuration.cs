@@ -34,7 +34,10 @@
 
             SetEnvVar(randomValue, EnvironmentVariableTarget.User);
 
-            var config = Configuration.For<IMyConfiguration>();
+            var config = Configuration.For<IMyConfiguration>(c =>
+            {
+                c.SqlConnectionString = "foo";
+            });
             Assert.Equal(randomValue, config.SqlConnectionString);
         }
 

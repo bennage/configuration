@@ -30,6 +30,11 @@
 
         public static T For<T>()
         {
+            return For<T>(_ => { });
+        }
+
+        public static T For<T>(Action<T> setupDefaults)
+        {
             var type = typeof (T);
             var rootName = type.Name;
             var properties = type.GetProperties();
