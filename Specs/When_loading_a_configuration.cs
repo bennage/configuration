@@ -52,19 +52,14 @@
 
         [Fact]
         public void can_load_from_config_file()
-        { 
+        {
             var expected = ConfigurationManager.AppSettings.Get(PropertyName);
             var config = Configuration.For<IMyConfiguration>();
             Assert.Equal(expected, config.SqlConnectionString);
         }
 
-        private static void SetEnvVar(string value, EnvironmentVariableTarget target)
-        {
-            Environment.SetEnvironmentVariable(
-                variable: PropertyName,
-                value: value,
-                target: target);
-        }
+        private static readonly Action<string, EnvironmentVariableTarget> SetEnvVar =
+            (value, target) => EnvVarHelper.SetEnvVar(value, target, PropertyName);
 
         public interface IMyConfiguration
         {

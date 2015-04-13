@@ -13,9 +13,9 @@
             key => Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.Process),
             key => Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.User),
             key => ConfigurationManager.AppSettings.Get(key)
-        }; 
+        };
 
-        private static string GetValueFor(string key)
+        internal static string GetValueFor(string key)
         {
             foreach (var strategy in ValueStrategies)
             {
