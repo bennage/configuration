@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Dynamic;
+    using System.Linq;
+    using System.Reflection;
     using ImpromptuInterface;
 
     public static class Configuration
@@ -23,7 +25,7 @@
                 if (value != null) return value;
             }
 
-            return string.Empty;
+            return null;
         }
 
         public static T For<T>()
@@ -33,20 +35,52 @@
 
         public static T For<T>(Action<T> setupDefaults)
         {
-            var type = typeof (T);
+            var type = typeof(T);
             var rootName = type.Name;
             var properties = type.GetProperties();
 
+            var expando = InitializeConfigurationObject(properties);
+
+            T projected = expando.ActLike();
+            setupDefaults(projected);
+
+            LookupAndSetValuesFor(properties, rootName, expando);
+
+            return projected;
+        }
+
+        private static void LookupAndSetValuesFor(PropertyInfo[] properties, string rootName, IDictionary<string, object> expando)
+        {
+            foreach (var property in properties)
+            {
+                var key = rootName + "." + property.Name;
+
+                var value = GetValueFor(key);
+
+                if (value != null)
+                    expando[property.Name] = value;
+            }
+        }
+
+        private static IDictionary<string, object> InitializeConfigurationObject(PropertyInfo[] properties)
+        {
             var expando = new ExpandoObject() as IDictionary<string, object>;
 
             foreach (var property in properties)
             {
-                var key = rootName + "." + property.Name;
-                var value = GetValueFor(key);
-                expando.Add(property.Name, value);
+                var propertyName = property.Name;
+                var defaultForType = GetDefaultValueForType(property.PropertyType);
+                expando.Add(propertyName, defaultForType);
             }
 
-            return expando.ActLike();
+            return expando;
+        }
+
+        internal static object GetDefaultValueForType(Type type)
+        {
+            return type.IsValueType
+                ? Activator.CreateInstance(type)
+                : null;
         }
     }
 }

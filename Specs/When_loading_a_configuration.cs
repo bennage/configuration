@@ -58,12 +58,23 @@
             Assert.Equal(expected, config.SqlConnectionString);
         }
 
+        [Fact]
+        public void default_values_are_used_as_last_resort()
+        {
+            var config = Configuration.For<IMyConfiguration>(defaults =>
+            {
+                defaults.SomeNumber = 42;
+            });
+            Assert.Equal(42, config.SomeNumber);
+        }
+
         private static readonly Action<string, EnvironmentVariableTarget> SetEnvVar =
             (value, target) => EnvVarHelper.SetEnvVar(value, target, PropertyName);
 
         public interface IMyConfiguration
         {
             string SqlConnectionString { get; }
+            int SomeNumber { get; set; }
         }
     }
 }
