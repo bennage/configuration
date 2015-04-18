@@ -35,9 +35,11 @@ var config = Configuration.For<IMyConfiguration>(c =>
 });
 ```
 
+## alternate syntax
+
 Some prefer a different approach to retrieving configuration values. This
 uses the same internal mechanism for retrieving the values.
-## alternate syntax
+
 ``` C#
 int numberOfSomething = ConfigurationHelper.Get<int>("MyConfiguration.NumberOfSomething");
 ```
