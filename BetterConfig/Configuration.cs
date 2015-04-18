@@ -11,16 +11,24 @@
 
     public static class Configuration
     {
-        public static IList<Func<string, string>> ValueStrategies = new List<Func<string, string>>()
+        public static IDictionary<string, Func<string, string>> ValueStrategies = new Dictionary<string, Func<string, string>>()
         {
-            key => Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.Process),
-            key => Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.User),
-            key => ConfigurationManager.AppSettings.Get(key)
+            { 
+                "environmental variable (process)",
+                key => Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.Process)
+             },
+             {
+                 "environmental variable (user)",
+                 key => Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.User)
+            },
+            {   "ConfigurationManager.AppSettings",
+                key => ConfigurationManager.AppSettings.Get(key)
+            }
         };
 
         internal static Option<string> GetValueFor(string key)
         {
-            foreach (var strategy in ValueStrategies)
+            foreach (var strategy in ValueStrategies.Values)
             {
                 var value = strategy(key);
                 if (value != null) return Option.Some(value);
@@ -65,7 +73,7 @@
                     expando[property.Name] = value.Value;
 
                 if (expando[property.Name] == null)
-                    problems.Add(new SettingNotFoundException(key));
+                    problems.Add(new SettingNotFoundException(key, ValueStrategies.Keys));
             }
 
             return problems;
