@@ -45,13 +45,16 @@
             T projected = expando.ActLike();
             setupDefaults(projected);
 
-            LookupAndSetValuesFor(properties, rootName, expando);
+            var problems = LookupAndSetValuesFor(properties, rootName, expando);
+
+            if (problems.Any()) throw new AggregateException(problems);
 
             return projected;
         }
 
-        private static void LookupAndSetValuesFor(PropertyInfo[] properties, string rootName, IDictionary<string, object> expando)
+        private static IList<Exception> LookupAndSetValuesFor(PropertyInfo[] properties, string rootName, IDictionary<string, object> expando)
         {
+            var problems = new List<Exception>();
             foreach (var property in properties)
             {
                 var key = rootName + "." + property.Name;
@@ -60,7 +63,12 @@
 
                 if (value.HasValue)
                     expando[property.Name] = value.Value;
+
+                if (expando[property.Name] == null)
+                    problems.Add(new SettingNotFoundException(key));
             }
+
+            return problems;
         }
 
         private static IDictionary<string, object> InitializeConfigurationObject(PropertyInfo[] properties)
