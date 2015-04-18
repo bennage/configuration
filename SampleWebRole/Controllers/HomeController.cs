@@ -9,7 +9,7 @@
     {
         public ActionResult Index()
         {
-            Configuration.ValueStrategies.Add(CloudConfigurationManager.GetSetting);
+            //Configuration.ValueStrategies.Add(CloudConfigurationManager.GetSetting);
 
             var config = Configuration.For<IMyConfiguration>();
             return View(config);

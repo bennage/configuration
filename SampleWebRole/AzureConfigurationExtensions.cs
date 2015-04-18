@@ -12,7 +12,7 @@
         {
             // TODO: can we ensure `ValueStrategies` is initialized?
             // review the order of execution
-            Configuration.ValueStrategies.Insert(0, CloudConfigurationManager.GetSetting);
+            //Configuration.ValueStrategies.Insert(0, CloudConfigurationManager.GetSetting);
 
             // TODO: Hmm... when running in Azure, should we check the cloud config first?
         }
