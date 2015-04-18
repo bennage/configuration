@@ -27,30 +27,32 @@ namespace BetterConfig
 
         public static T To<T>(string rawVaule)
         {
-            var targetType = typeof(T);
+            return (T)To(rawVaule, typeof(T));
+        }
 
-            if (!Map.ContainsKey(targetType))
-            {
-                //TODO: this could be extensible as well
-                return targetType.IsEnum
-                    ? (T)Enum.Parse(targetType, rawVaule)
-                    : (T)Convert.ChangeType(rawVaule, targetType);
-            }
-
+        public static object To(string rawVaule, Type targetType)
+        {
             try
             {
-                return (T)Map[targetType](rawVaule);
+                if (!Map.ContainsKey(targetType))
+                {
+                    //TODO: this could be extensible as well
+                    return targetType.IsEnum
+                        ? Enum.Parse(targetType, rawVaule)
+                        : Convert.ChangeType(rawVaule, targetType);
+                }
+
+                return Map[targetType](rawVaule);
             }
             catch (Exception e)
             {
-                // TODO: something other than trace?
-                Trace.WriteLine(String.Format(
+                var msg = (String.Format(
                     "Could not convert string '{0}' to type {1}: {2}",
                     rawVaule,
                     targetType.Name,
                     e));
 
-                throw;
+                throw new FormatException(msg, e);
             }
         }
     }

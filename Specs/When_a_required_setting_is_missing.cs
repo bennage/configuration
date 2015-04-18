@@ -31,7 +31,7 @@ namespace Specs
             Configuration.ValueStrategies.Keys.ToList().ForEach(
                 strategy =>
                 {
-                    Assert.True(_exception.Explanation.Contains(strategy));
+                    Assert.True(_exception.Message.Contains(strategy));
                 });
 
             Assert.True(Configuration.ValueStrategies.Count > 0);
@@ -40,7 +40,7 @@ namespace Specs
         [Fact]
         public void contain_an_explanation_of_which_setting_it_was_looking_for()
         {
-            Assert.True(_exception.Explanation.Contains("IHasRequiredSetting.SomethingRequired"));
+            Assert.True(_exception.Message.Contains("IHasRequiredSetting.SomethingRequired"));
         }
 
 

@@ -52,6 +52,7 @@
     <Compile Include="ConvertValue.cs" />
     <Compile Include="LocalHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingConversionException.cs" />
     <Compile Include="SettingNotFoundException.cs" />
   </ItemGroup>
   <ItemGroup>

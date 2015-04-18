@@ -67,10 +67,21 @@
             {
                 var key = rootName + "." + property.Name;
 
-                var value = GetValueFor(key);
+                var unparsedValue = GetValueFor(key);
 
-                if (value.HasValue)
-                    expando[property.Name] = value.Value;
+                if (unparsedValue.HasValue)
+                {
+                    try
+                    {
+                        var value = ConvertValue.To(unparsedValue.Value, property.PropertyType);
+                        expando[property.Name] = value;
+                    }
+                    catch (Exception e)
+                    {
+                        problems.Add(new SettingConversionException(key, unparsedValue.Value, property.PropertyType, e));
+                        expando[property.Name] = unparsedValue.Value;
+                    }
+                }
 
                 if (expando[property.Name] == null)
                     problems.Add(new SettingNotFoundException(key, ValueStrategies.Keys));
