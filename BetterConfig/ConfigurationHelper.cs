@@ -9,7 +9,9 @@
             var rawValue = Configuration.GetValueFor(key);
             try
             {
-                return ConvertValue.To<T>(rawValue);
+                if (rawValue.HasValue)
+                    return ConvertValue.To<T>(rawValue.Value);
+                throw new Exception("?");
             }
             catch (Exception e)
             {

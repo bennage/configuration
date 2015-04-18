@@ -6,6 +6,7 @@
     using System.Dynamic;
     using System.Linq;
     using System.Reflection;
+    using Functional.Option;
     using ImpromptuInterface;
 
     public static class Configuration
@@ -17,15 +18,15 @@
             key => ConfigurationManager.AppSettings.Get(key)
         };
 
-        internal static string GetValueFor(string key)
+        internal static Option<string> GetValueFor(string key)
         {
             foreach (var strategy in ValueStrategies)
             {
                 var value = strategy(key);
-                if (value != null) return value;
+                if (value != null) return Option.Some(value);
             }
 
-            return null;
+            return Option.None;
         }
 
         public static T For<T>()
@@ -57,8 +58,8 @@
 
                 var value = GetValueFor(key);
 
-                if (value != null)
-                    expando[property.Name] = value;
+                if (value.HasValue)
+                    expando[property.Name] = value.Value;
             }
         }
 
