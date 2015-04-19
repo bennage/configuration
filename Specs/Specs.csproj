@@ -72,7 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnvironmentVariable.cs" />
-    <Compile Include="TheLocaLHelper.cs" />
+    <Compile Include="When_using_local_dev_config.cs" />
     <Compile Include="When_a_required_setting_is_missing.cs" />
     <Compile Include="When_a_value_cannot_be_converted.cs" />
     <Compile Include="When_loading_a_configuration.cs" />

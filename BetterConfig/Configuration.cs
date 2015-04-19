@@ -97,8 +97,8 @@
             foreach (var property in properties)
             {
                 var propertyName = property.Name;
-                var defaultForType = GetDefaultValueForType(property.PropertyType);
-                expando.Add(propertyName, defaultForType);
+                //var defaultForType = GetDefaultValueForType(property.PropertyType);
+                expando.Add(propertyName, null);
             }
 
             return expando;
