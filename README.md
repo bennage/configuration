@@ -23,7 +23,7 @@ that, but I'm open to arguments favoring other approaches.
 public interface IMyConfiguration
 {
     string ConnectionString { get; }
-    TimeSpace DurationOfThing { get; }
+    TimeSpan DurationOfThing { get; }
     int NumberOfSomething { get; set; }
 }
 
